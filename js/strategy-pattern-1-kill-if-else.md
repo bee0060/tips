@@ -1,5 +1,5 @@
-[WIP]
-## 策略模式应用一 -- 重构if else
+## 策略模式应用壹 - `干掉if else`
+
 
 ### 什么是策略模式
 
@@ -27,7 +27,6 @@ function goTo(by) {
    } else if (by === 'subway') {
     // do something for subway
    }
-   
 }
 
 ```
@@ -38,11 +37,40 @@ function goTo(by) {
 
 用策略模式的话，可以重构成以下这样：
 ```
-const byWalking = () => {};
+const byWalking = () => {
+   // do something for walking
+}
+const byBicycle = () => {
+   // do something for bicycle
+}
+const byBus = () => {
+   // do something for by bus
+}
+const bySubway = () => {
+   // do something for subway
+}
+const ways = {
+   walking: byWalking,
+   bicycle: byBicycle,
+   bus: byBus,
+   subway: bySubway,
+};
 
-const ways = {};
+function goTo(by) {
+   const handler = ways[by]
+   if (typeof handler === 'function') {
+      handler();
+   }
+}
+
 ```
 
+好了，经过这样的重构， goTo与具体的出行方式已经解耦。
+之后需要增加出行方式，只需要修改`ways`，或者提供一种注册方法往ways中注册即可，无需再修改goTo方法。
+解耦和扩展性都得到了满足。
+而且各出行方法都拆出去，更独立，可读性和可维护性也提升了。 
+
+而且也更符合`开放封闭原则`：
 
 > 开放封闭原则： 对扩展开放，对修改封闭
 

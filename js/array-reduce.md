@@ -29,7 +29,7 @@ var sum = student.reduce((acc, cur) => acc + cur.score, 0)
 ```
 var summary = student.reduce((acc, cur) => {
   var score = cur.score
-  var grade = 'EDCBA'[parseInt(score / 10 - 5, 10)]  // 奇技淫巧，只为省点if/else代码，工作中慎用
+  var grade = 'EEEEEEDCBAA'[Math.max(0, parseInt(score / 10, 10))]  // 奇技淫巧，只为省点if/else代码，工作中慎用
   acc[grade] = acc[grade] + 1
   return acc
 }, {
